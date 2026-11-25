@@ -9,7 +9,7 @@ A steady-scalper paper-trading bot for make.fun's "Pump.fun Sharpe Sprint — Cl
 ## How it works
 
 - **Entry:** a coin becomes a buy only when it is mature (past a minimum age since its CreateEvent) and its trailing tape shows sustained, broad buy pressure — net SOL inflow over the window, several distinct buyers, no single wallet dominating the flow, price up but not parabolic and sitting near its window high, with inflow accelerating into the newer half of the window.
-- **Size:** 0.05 SOL per position, at most 5 open positions, never more than the 1%-of-real-reserve size cap.
+- **Size:** 0.04 SOL per position, at most 5 open positions, never more than the 1%-of-real-reserve size cap.
 - **Exit:** whole position on a +12% take-profit, a −6% stop loss, an 8% trailing stop once up 8%, or a time stop — capital keeps turning over.
 - **Pace guard:** the run needs round trips of ≥ 0.01 SOL on at least 20 distinct mints. When no new coin has been entered for a while and the bar is not met, the bot opens a tiny 0.01 SOL probe of the most liquid mature curve with positive net inflow and sells it as soon as the buy lands.
 - **Deterministic:** no clock, no randomness, no network, no environment reads — everything the bot runs is in this repository.

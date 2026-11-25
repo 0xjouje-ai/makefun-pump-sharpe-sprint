@@ -1,9 +1,13 @@
 // Steady-scalper paper bot for the pump.fun replay (agent-fun/replay/v2).
 //
 // Idea: Sharpe ratio rewards steady small wins, not moonshots. So this bot
-// takes small, diversified stakes (0.05 SOL) in coins that show *sustained,
+// takes small, diversified stakes (0.04 SOL) in coins that show *sustained,
 // broad* buy pressure, and exits fast on a fixed take-profit, a tight stop
-// loss, or a trailing stop. No pyramiding, no holding through chop.
+// loss, or a trailing stop. No pyramiding, no holding through chop. The
+// entry bar is deliberately strict: on the dev window every looser
+// variant traded more and lost more, so the bot only takes the few
+// setups with the strongest tape and lets the pace probes cover the
+// 20-coin minimum bar.
 //
 // Entry signal (per mint, evaluated on every batch):
 //   - the curve is mature: at least minAge slots since its CreateEvent
@@ -98,26 +102,26 @@ export interface Params {
 }
 
 export const DEFAULT_PARAMS: Params = {
-  windowSlots: 3600,
-  minAgeSlots: 600,
-  minNetSol: 0.5,
-  minBuys: 8,
-  minBuyers: 5,
-  minUpBps: 200,
-  maxUpBps: 2500,
-  accel: 1.0,
-  nearHighBps: 9500,
+  windowSlots: 2400,
+  minAgeSlots: 900,
+  minNetSol: 1,
+  minBuys: 10,
+  minBuyers: 6,
+  minUpBps: 300,
+  maxUpBps: 1500,
+  accel: 1.5,
+  nearHighBps: 9700,
   maxBuyerShareBps: 6000,
   minRqSol: 0.5,
   maxRqSol: 60,
-  stakeSol: 0.05,
-  minBuySol: 0.02,
+  stakeSol: 0.04,
+  minBuySol: 0.01,
   buySlipBps: 500,
   takeProfitBps: 1200,
   stopLossBps: -600,
   trailBps: 800,
   trailArmBps: 800,
-  maxHoldSlots: 12000,
+  maxHoldSlots: 6000,
   cooldownSlots: 1200,
   maxEntriesPerMint: 2,
   probeSol: 0.01,
